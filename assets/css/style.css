@@ -1,0 +1,72 @@
+body {
+    background-color: black;
+    font-family: 'Arvo', serif;
+}
+
+#skyline {
+    background-image: url("../images/phillySkyline.jpg");
+    background-repeat: no-repeat;
+    opacity: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: black;
+    width: 1000px;
+}
+
+#tvma {
+    float: right;
+    top: 15px;
+    right: 15px;
+    position: fixed;
+    background-color: white;
+    height: 75px;
+    width: 75px;
+}
+
+#barSign {
+    float: left;
+    height: 170px;
+    width: 300px;
+    margin-top: 100px;
+    opacity: 0;
+}
+
+#gotBeef {
+    width: 1000px;
+    opacity:1;
+}
+
+.btn {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    width: 160px;
+   
+}
+
+#okGood {
+    float: left;
+    margin-left: 175px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+p {
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+
+#titleCard {
+    width:1000px;
+
+}
