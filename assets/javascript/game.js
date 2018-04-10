@@ -4,7 +4,7 @@ $(document).ready(function() {
     var phillySkyline = $("#skyline");
     var paddysSign = $("#barSign");
     var dialogBox = $("#dialog-box");
-
+    
     //link to all sounds as jQuery vars
     var creditsSound = document.createElement("audio");
     creditsSound.setAttribute("src", "assets/sounds/openerCloser.mp3");
@@ -49,20 +49,34 @@ $(document).ready(function() {
         $("#dialog-box").empty();
         $("#title-box").append("<img id='titleCard' src='assets/images/titleCard.jpg'>");
         creditsSound.play();
-        phillySkyline.animate({opacity: "1"}, 10000);
+        phillySkyline.animate({opacity: "1"}, 7500);
         paddysSign.animate({opacity: "1"}, 1000);
         
         $("#dialog-box").append(
             "<div class='col-md-5'></div><div class='col-md-2'><button class='btn' id='startBtn'>LET'S RUMBLE.</button></div>"
         );
         
-        dialogBox.animate({opacity: "1"}, 10000);
+        dialogBox.animate({opacity: "1"}, 7500);
     });
     $("body").on("click", "#startBtn", function(){
         $("#title-box").empty();
+        $("#dialog-box").empty();
         $("#title-box").append("<h1>Choose your character!</h1>");
         creditsSound.pause();
         musicArray[Math.floor(Math.random()*5)].play();
+        //$("#dialog-box").append("<div class='col-md-1'></div>");
+        var characterBox = $("#dialog-box");
+        for (i=0; i<gang.length; i++) {
+            
+            //$("#dialog-box").append("<div class='col-md-2' id='character" + i + "'</div>");
+            var jabroniIcon = $("<img>");
+            jabroniIcon.addClass("jabroni-image");
+            jabroniIcon.attr("src", "assets/images/"+avatars[i][0]);
+            jabroniIcon.attr("characterSelector", i);
+            characterBox.append(jabroniIcon);
+            
+           // $("#character"+i).append("<img src=");
+        }
     });
 
 
