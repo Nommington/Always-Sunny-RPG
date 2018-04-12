@@ -47,21 +47,19 @@ $(document).ready(function() {
         console.log("jaaaaabroni");
         $("#dialog-box").css({"opacity": "0"});
         $("#dialog-box").empty();
-        $("#title-box").append("<img id='titleCard' src='assets/images/titleCard.jpg'>");
+        $("#foe-box").append("<img id='titleCard' src='assets/images/titleCard.jpg'>");
         creditsSound.play();
-        phillySkyline.animate({opacity: "1"}, 7500);
+        phillySkyline.animate({opacity: "1"}, 5000);
         paddysSign.animate({opacity: "1"}, 1000);
         
-        $("#dialog-box").append(
-            "<div class='col-md-5'></div><div class='col-md-2'><button class='btn' id='startBtn'>LET'S RUMBLE.</button></div>"
-        );
+        $("#dialog-box").append("<div class='col-md-5'></div><div class='col-md-2'><button class='btn' id='startBtn'>LET'S RUMBLE.</button></div>");
         
-        dialogBox.animate({opacity: "1"}, 7500);
+        dialogBox.animate({opacity: "1"}, 5000);
     });
     $("body").on("click", "#startBtn", function(){
-        $("#title-box").empty();
+        $("#foe-box").empty();
         $("#dialog-box").empty();
-        $("#title-box").append("<h1>Choose your character!</h1>");
+        $("#foe-box").append("<h1>Choose your character!</h1>");
         creditsSound.pause();
         musicArray[Math.floor(Math.random()*5)].play();
         //$("#dialog-box").append("<div class='col-md-1'></div>");
@@ -72,12 +70,23 @@ $(document).ready(function() {
             var jabroniIcon = $("<img>");
             jabroniIcon.addClass("jabroni-image");
             jabroniIcon.attr("src", "assets/images/"+avatars[i][0]);
+            jabroniIcon.attr("id", "jabroniIcon"+i);
             jabroniIcon.attr("characterSelector", i);
             characterBox.append(jabroniIcon);
-            
-           // $("#character"+i).append("<img src=");
         }
-    });
+
+        characterBox.on("click", ".jabroni-image", function() {
+            var characterSelector = ($(this).attr("characterSelector"));
+            characterSelector = parseInt(characterSelector);
+            console.log(characterSelector);
+            var playerIcon = $("#jabroniIcon"+characterSelector);
+            $("#foe-box").empty();
+            $("#foe-box").append("<h1>You chose " + gang[characterSelector] + ".");
+        });
+        
+    });    
+        
+    
 
 
 //character names
@@ -144,8 +153,7 @@ var wildCard = [0, 1, 1, 1];
 var item = ["Cosmo", "Pocket Spaghetti", "Fight Milk", "Car Cereal", "Wine in a Can"];
 var itemPics = ["cosmo.png","spaghetti.png", "milk.png", "cereal.png", "can.png"];
 
-characterSelector=4;
-foeSelector = 3;
+
 var strength = 0;
 //user-chosen character object
 var character = {
@@ -195,11 +203,9 @@ var character = {
 character.attack();
 character.victory();
 
-console.log(character.damage);
-console.log(character);
-console.log(foe);
-console.log(wildCard);
+//console.log(character.damage);
+//console.log(character);
+//console.log(foe);
+//console.log(wildCard);
 });
 //weakAttack = (Math.floor((Math.random() * 10) + this.attackPower));
-        
-//console.log(character(1,1))
