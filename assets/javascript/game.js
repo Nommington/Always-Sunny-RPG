@@ -74,17 +74,32 @@ $(document).ready(function() {
             jabroniIcon.attr("characterSelector", i);
             characterBox.append(jabroniIcon);
         }
+        var foeTime = false;
+        
 
         characterBox.on("click", ".jabroni-image", function() {
             var characterSelector = ($(this).attr("characterSelector"));
             characterSelector = parseInt(characterSelector);
             console.log(characterSelector);
             var playerIcon = $("#jabroniIcon"+characterSelector);
+            $(playerIcon).remove();
+            
             $("#foe-box").empty();
-            $("#foe-box").append("<h1>You chose " + gang[characterSelector] + ".");
+            $("#foe-box").append("<h1>Who you got beef with?</h1>");
+            $("#character-box").append("<div class='col-md-3' id='characterFrame'> </div>");
+            $("#character-box").append("<div class='col-md-9' id='statBox'> </div>");
+            $(playerIcon).appendTo("#characterFrame");
+            for (j=0; j<3; j++) {
+                var statsBox = $("<div>");
+                statsBox.addClass("row");
+                statsBox.addClass("statBox");
+                $("#statBox").append(statsBox);
+                statsBox.attr("id", "stats"+j);
+            }
+            $("#stats0").append("<h2>"+gang[characterSelector]+"</h2>");
         });
-        
-    });    
+
+    });    //for the love of GOD don't get rid of this parenthesis
         
     
 
