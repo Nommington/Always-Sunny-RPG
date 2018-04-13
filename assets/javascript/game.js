@@ -8,16 +8,22 @@ $(document).ready(function() {
     //link to all sounds as jQuery vars
     var creditsSound = document.createElement("audio");
     creditsSound.setAttribute("src", "assets/sounds/openerCloser.mp3");
+    creditsSound.setAttribute("loop", "true");
     var music1 = document.createElement("audio");
     music1.setAttribute("src", "assets/sounds/captainsTable.mp3");
+    music1.setAttribute("loop", "true");
     var music2 = document.createElement("audio");
     music2.setAttribute("src", "assets/sounds/coconutShy.mp3");
+    music2.setAttribute("loop", "true");
     var music3 = document.createElement("audio");
     music3.setAttribute("src", "assets/sounds/glitteratiParty.mp3");
+    music3.setAttribute("loop", "true");
     var music4 = document.createElement("audio");
     music4.setAttribute("src", "assets/sounds/onYourBike.mp3");
+    music4.setAttribute("loop", "true");
     var music5 = document.createElement("audio");
     music5.setAttribute("src", "assets/sounds/takeThePlunge.mp3");
+    music5.setAttribute("loop", "true");
     var attackSound1 = document.createElement("audio");
     attackSound1.setAttribute("src", "assets/sounds/punch.mp3");
     var attackSound2 = document.createElement("audio");
@@ -28,6 +34,7 @@ $(document).ready(function() {
     itemSound.setAttribute("src", "assets/sounds/burp.mp3");
     var defeatSound = document.createElement("audio");
     defeatSound.setAttribute("src", "assets/sounds/wilhelm.mp3");
+    
 
     var musicArray = [music1, music2, music3, music4, music5];
     //beef is inquired about
@@ -74,7 +81,7 @@ $(document).ready(function() {
             jabroniIcon.attr("characterSelector", i);
             characterBox.append(jabroniIcon);
         }
-        var foeTime = false;
+        var foeChooseTime = false;
         
 
         characterBox.on("click", ".jabroni-image", function() {
@@ -92,7 +99,7 @@ $(document).ready(function() {
             for (j=0; j<3; j++) {
                 var statsBox = $("<div>");
                 statsBox.addClass("row");
-                statsBox.addClass("statBox");
+                //statsBox.addClass("statBox");
                 $("#statBox").append(statsBox);
                 statsBox.attr("id", "stats"+j);
                 statsBox.attr("class", "statsThird");
@@ -101,10 +108,19 @@ $(document).ready(function() {
             $("#stats0").append("<h2>"+gang[characterSelector]+"</h2>");
             $("#stats1").append("<div id='playerHealthBarFrame'> </div>");
             $("#stats1").append("<div id='playerHealthBar'> </div>");
-            $("#playerHealthBarFrame").css({"height":"50px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
-            $("#playerHealthBar").css({"height":"50px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
+            $("#playerHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
+            $("#playerHealthBar").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
+            foeChooseTime=true;
         });
 
+        if (foeChooseTime) {
+            characterBox.on("click", ".jabroni-image", function() {
+                var foeSelector = ($(this).attr("foeSelector"));
+                foeSelector = parseInt(foeSelector);
+                var foeIcon = $("#jabroniIcon"+foeSelector);
+                $("#foe-box").append("<div class='col-md-9' id='foeStatBox'> </div>");
+                $("#foe-box").append("<div class='col-md-3' id='foeFrame'> </div>");
+        })}
     });    //for the love of GOD don't get rid of this parenthesis
         
     
