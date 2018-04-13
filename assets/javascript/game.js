@@ -95,8 +95,14 @@ $(document).ready(function() {
                 statsBox.addClass("statBox");
                 $("#statBox").append(statsBox);
                 statsBox.attr("id", "stats"+j);
+                statsBox.attr("class", "statsThird");
             }
+            $(".statsThird").css({"height":"50px", "color":"white"});
             $("#stats0").append("<h2>"+gang[characterSelector]+"</h2>");
+            $("#stats1").append("<div id='playerHealthBarFrame'> </div>");
+            $("#stats1").append("<div id='playerHealthBar'> </div>");
+            $("#playerHealthBarFrame").css({"height":"50px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
+            $("#playerHealthBar").css({"height":"50px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
         });
 
     });    //for the love of GOD don't get rid of this parenthesis
