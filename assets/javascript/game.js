@@ -80,11 +80,15 @@ $(document).ready(function() {
             jabroniIcon.attr("id", "jabroniIcon"+i);
             jabroniIcon.attr("characterSelector", i);
             characterBox.append(jabroniIcon);
+            var playerChooseTime = true;
         }
-        var foeChooseTime = false;
+        
         
 
+        
         characterBox.on("click", ".jabroni-image", function() {
+            if (playerChooseTime) {
+            playerChooseTime = false;
             var characterSelector = ($(this).attr("characterSelector"));
             characterSelector = parseInt(characterSelector);
             console.log(characterSelector);
@@ -110,17 +114,38 @@ $(document).ready(function() {
             $("#stats1").append("<div id='playerHealthBar'> </div>");
             $("#playerHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
             $("#playerHealthBar").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
-            foeChooseTime=true;
-        });
+            
+            }
 
-        if (foeChooseTime) {
-            characterBox.on("click", ".jabroni-image", function() {
-                var foeSelector = ($(this).attr("foeSelector"));
+        else {
+            //characterBox.on("click", ".jabroni-image", function() {
+                var foeSelector = ($(this).attr("characterSelector"));
                 foeSelector = parseInt(foeSelector);
+                console.log(foeSelector);
                 var foeIcon = $("#jabroniIcon"+foeSelector);
-                $("#foe-box").append("<div class='col-md-9' id='foeStatBox'> </div>");
+                $(foeIcon).remove();
+                $("#foe-box").empty();
+                $("#dialog-box").empty();
+                $("#dialog-box").append("<h1>Let's squash this beef!</h1>");
                 $("#foe-box").append("<div class='col-md-3' id='foeFrame'> </div>");
-        })}
+                $(foeIcon).appendTo("#foeFrame");
+                $("#foe-box").append("<div class='col-md-9' id='foeStatBox'> </div>");
+                for (k=0; k<3; k++) {
+                    var foeStatsBox = $("<div>");
+                    foeStatsBox.addClass("row");
+                    //statsBox.addClass("statBox");
+                    $("#foeStatBox").append(foeStatsBox);
+                    foeStatsBox.attr("id", "foeStats"+k);
+                    foeStatsBox.attr("class", "statsThird");
+                }
+                $(".statsThird").css({"height":"50px", "color":"white"});
+                $("#foeStats0").append("<h2>"+gang[foeSelector]+"</h2>");
+                $("#foeStats1").append("<div id='foeHealthBarFrame'> </div>");
+                $("#foeStats1").append("<div id='foeHealthBar'> </div>");
+                $("#foeHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[foeSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
+                $("#foeHealthBar").css({"height":"40px", "width":(parseInt(gangHP[foeSelector])*3), "position":"absolute", "background-color":"yellow" });
+                
+        }});
     });    //for the love of GOD don't get rid of this parenthesis
         
     
