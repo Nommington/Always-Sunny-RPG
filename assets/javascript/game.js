@@ -35,7 +35,8 @@ $(document).ready(function() {
     var defeatSound = document.createElement("audio");
     defeatSound.setAttribute("src", "assets/sounds/wilhelm.mp3");
     
-
+    
+    var soundArray = [attackSound1, attackSound2, attackSound3];
     var musicArray = [music1, music2, music3, music4, music5];
     //beef is inquired about
     $("#dialog-box").append("<h1>You got beef, Jabroni?</h1>");
@@ -68,7 +69,8 @@ $(document).ready(function() {
         $("#dialog-box").empty();
         $("#foe-box").append("<h1>Choose your character!</h1>");
         creditsSound.pause();
-        musicArray[Math.floor(Math.random()*5)].play();
+        var bgm = musicArray[Math.floor(Math.random()*5)];
+        bgm.play();
         //$("#dialog-box").append("<div class='col-md-1'></div>");
         var characterBox = $("#dialog-box");
         for (i=0; i<gang.length; i++) {
@@ -81,44 +83,45 @@ $(document).ready(function() {
             jabroniIcon.attr("characterSelector", i);
             characterBox.append(jabroniIcon);
             var playerChooseTime = true;
+            var timeToFight = false;
         }
         
         
 
         
-        characterBox.on("click", ".jabroni-image", function() {
+        characterBox.on("click", ".jabroni-image", function chooseOpponent(characterBox) {
+            
             if (playerChooseTime) {
-            playerChooseTime = false;
-            var characterSelector = ($(this).attr("characterSelector"));
-            characterSelector = parseInt(characterSelector);
-            console.log(characterSelector);
-            var playerIcon = $("#jabroniIcon"+characterSelector);
-            $(playerIcon).remove();
-            
-            $("#foe-box").empty();
-            $("#foe-box").append("<h1>Who you got beef with?</h1>");
-            $("#character-box").append("<div class='col-md-3' id='characterFrame'> </div>");
-            $("#character-box").append("<div class='col-md-9' id='statBox'> </div>");
-            $(playerIcon).appendTo("#characterFrame");
-            for (j=0; j<3; j++) {
-                var statsBox = $("<div>");
-                statsBox.addClass("row");
-                //statsBox.addClass("statBox");
-                $("#statBox").append(statsBox);
-                statsBox.attr("id", "stats"+j);
-                statsBox.attr("class", "statsThird");
-            }
-            $(".statsThird").css({"height":"50px", "color":"white"});
-            $("#stats0").append("<h2>"+gang[characterSelector]+"</h2>");
-            $("#stats1").append("<div id='playerHealthBarFrame'> </div>");
-            $("#stats1").append("<div id='playerHealthBar'> </div>");
-            $("#playerHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
-            $("#playerHealthBar").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
-            
+                playerChooseTime = false;
+                characterSelector = ($(this).attr("characterSelector"));
+                characterSelector = parseInt(characterSelector);
+                console.log(characterSelector);
+                var playerIcon = $("#jabroniIcon"+characterSelector);
+                $(playerIcon).remove();
+                
+                $("#foe-box").empty();
+                $("#foe-box").append("<h1>Who you got beef with?</h1>");
+                $("#character-box").append("<div class='col-md-3' id='characterFrame'> </div>");
+                $("#character-box").append("<div class='col-md-9' id='statBox'> </div>");
+                $(playerIcon).appendTo("#characterFrame");
+                for (j=0; j<3; j++) {
+                    var statsBox = $("<div>");
+                    statsBox.addClass("row");
+                    //statsBox.addClass("statBox");
+                    $("#statBox").append(statsBox);
+                    statsBox.attr("id", "stats"+j);
+                    statsBox.attr("class", "statsThird");
+                }
+                $(".statsThird").css({"height":"50px", "color":"white"});
+                $("#stats0").append("<h2>"+gang[characterSelector]+"</h2>");
+                $("#stats1").append("<div id='playerHealthBarFrame'> </div>");
+                $("#stats1").append("<div id='playerHealthBar'> </div>");
+                $("#playerHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
+                $("#playerHealthBar").css({"height":"40px", "width":(parseInt(gangHP[characterSelector])*3), "position":"absolute", "background-color":"yellow" });
+                return characterSelector;
             }
 
-        else {
-            //characterBox.on("click", ".jabroni-image", function() {
+            else {               
                 var foeSelector = ($(this).attr("characterSelector"));
                 foeSelector = parseInt(foeSelector);
                 console.log(foeSelector);
@@ -127,8 +130,10 @@ $(document).ready(function() {
                 $("#foe-box").empty();
                 $("#dialog-box").empty();
                 $("#dialog-box").append("<h1>Let's squash this beef!</h1>");
+                $("#dialog-box").append("<h1>Fight!</h1>");
                 $("#foe-box").append("<div class='col-md-3' id='foeFrame'> </div>");
                 $(foeIcon).appendTo("#foeFrame");
+                $(foeIcon).attr("id","foeAvatar");
                 $("#foe-box").append("<div class='col-md-9' id='foeStatBox'> </div>");
                 for (k=0; k<3; k++) {
                     var foeStatsBox = $("<div>");
@@ -144,8 +149,47 @@ $(document).ready(function() {
                 $("#foeStats1").append("<div id='foeHealthBar'> </div>");
                 $("#foeHealthBarFrame").css({"height":"40px", "width":(parseInt(gangHP[foeSelector])*3), "border-width": "2px", "border-style": "solid", "position":"absolute" });
                 $("#foeHealthBar").css({"height":"40px", "width":(parseInt(gangHP[foeSelector])*3), "position":"absolute", "background-color":"yellow" });
+                timeToFight = true;
+            }
+            console.log(timeToFight);
+            if (timeToFight) {
+                var buttonText = ["Weak Attack", "Strong Attack"];
+                for (l=0; l<2; l++) {
+                    var fightButton = $("<button>");
+                    fightButton.addClass("btn fightButton");
+                    fightButton.css({"height":"30px", "color":"black", "background-color":"white", "margin-right": "10px"});
+                    fightButton.text(buttonText[l]);
+                    fightButton.attr("id", "fightButton"+l);
+                    fightButton.attr("strength", l);
+                    fightButton.appendTo("#stats2");
+                }
+                //add item time permitting
                 
-        }});
+                $("#stats2").on("click", ".fightButton", function() {
+                    var strength = ($(this).attr("strength"));
+                    strength = parseInt(strength);
+                    $("#dialog-box").empty();
+                    
+                    
+                     var damage = 0;
+                    if (strength != 0) {
+                        damage = Math.floor((Math.random() * 10) + gangAttack[characterSelector][strength]) * wildCard[(Math.floor(Math.random()*4))];
+                    }
+                    else {
+                        damage = Math.floor((Math.random() * 10) + gangAttack[characterSelector][strength]);
+                    }
+                    $("#dialog-box").append("<p>You used "+moves[characterSelector][strength]+". It did "+damage+" damage.");
+                    if (damage === 0) {
+                        $("#dialog-box").append("<p>It was pretty much garbage.");
+                    }
+                    else {
+                        soundArray[Math.floor(Math.random()*3)].play();
+                    }
+                }); 
+
+                
+           }
+    });
     });    //for the love of GOD don't get rid of this parenthesis
         
     
@@ -216,7 +260,7 @@ var item = ["Cosmo", "Pocket Spaghetti", "Fight Milk", "Car Cereal", "Wine in a 
 var itemPics = ["cosmo.png","spaghetti.png", "milk.png", "cereal.png", "can.png"];
 
 
-var strength = 0;
+//var strength = 0;
 //user-chosen character object
 var character = {
     name: gang[characterSelector],
