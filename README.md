@@ -8,6 +8,6 @@
 
 ![screenshot](https://github.com/Nommington/Always-Sunny-RPG/blob/master/assets/images/screenshot.jpg)
 
-###Resources
+### Resources
 * [Twitter Bootstrap](getbootstrap.com)
 * [jQuery](jquery.com)
