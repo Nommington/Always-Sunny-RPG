@@ -44,7 +44,7 @@ $(document).ready(function() {
     $("#dialog-box").append(
         "<div class='col-md-5'></div><div class='col-md-2'><button class='btn' id='beefBtn'>No, I have no beef.</button></div>");    
     $("#beefBtn").on("click", function(){
-        console.log("jabronis");
+        //console.log("jabronis");
         $("#dialog-box").empty();
         $("#dialog-box").append("<h1>OK good.</h1>");
         $("#dialog-box").append("<p>The last thing we need right now is for all of us to fight each other.</p>");
@@ -52,7 +52,7 @@ $(document).ready(function() {
             "<div class='col-md-5'></div><div class='col-md-2'><button class='btn' id='initBtn'>Whew.</button></div>");
         });    
     $("body").on("click", "#initBtn", function(){
-        console.log("jaaaaabroni");
+        //console.log("jaaaaabroni");
         $("#dialog-box").css({"opacity": "0"});
         $("#dialog-box").empty();
         $("#foe-box").append("<img id='titleCard' src='assets/images/titleCard.jpg'>");
@@ -271,7 +271,7 @@ var character = {
     powerUp: item[characterSelector],
     attackPower: gangAttack[characterSelector][strength],
     damage: 0,
-    counterAttackPower: gangCounterattack[characterSelector][strength],
+    //counterAttackPower: gangCounterattack[characterSelector][strength],
     //attack fires, returns damage to be applied to foe hp
     attack: function() {
         if (strength === 0) {
